@@ -16,10 +16,15 @@ public class InsertionSort extends Sort
 	@Override
 	public void sort() 
 	{
-		for (int x = 1; x < array.length; x++)
+		gapSort(0, 1);
+	}
+	
+	void gapSort(int begin, int gap)
+	{
+		for (int x = begin + gap; x < array.length; x += gap)
 		{
-			int firstSmallerThan = -1;
-			for (int i = x-1; i >= 0; i--)
+			int firstSmallerThan = begin-gap; // none found yet;
+			for (int i = x - gap; i >= 0; i -= gap)
 			{
 				if (compare(x, i) > 0)
 				{
@@ -27,7 +32,10 @@ public class InsertionSort extends Sort
 					break;
 				}
 			}
-			insert(x, firstSmallerThan + 1);
+			int wrong = (x-(firstSmallerThan+gap))%gap;
+			if (wrong != 0) throw new RuntimeException(String.valueOf(wrong));
+			
+			insert(x, firstSmallerThan + gap, gap);
 		}
 	}
 }

@@ -18,20 +18,24 @@ public class BubbleSort extends Sort
 	public void sort()
 	{
 		boolean done = false;
-		int amountFinished = 1;
+		int amountFinished = 0;
 		while (!done)
 		{
-			done = true;
-			for (int i = 0; i < array.length - amountFinished; i++)
-			{
-				if (compare(i, i+1) > 0) 
-				{
-					swap(i, i+1);
-					done = false;
-				}
-			}
+			done = pass(1, array.length - amountFinished);
 			amountFinished += 1;
 		} 
 	}
-
+	boolean pass(int gap, int end)
+	{
+		boolean done = true;
+		for (int i = 0; i < end - gap; i++)
+		{
+			if (compare(i, i + gap) > 0)
+			{
+				swap(i, i + gap);
+				done = false;
+			}
+		}
+		return done;
+	}
 }

@@ -1,5 +1,6 @@
 package sorts;
 
+import gui.Main;
 import gui.SortListener;
 
 public abstract class Sort 
@@ -19,7 +20,7 @@ public abstract class Sort
 		int[] temp = new int[length];
 		if (sequence)
 			for (int i = 0; i < length; i++)
-				temp[i] = i+1;
+				temp[i] = i+1;// - length/2;
 		else for (int i = 0; i < length; i++)
 			temp[i] = (int) (Math.random()*length + 1);
 		return temp;
@@ -41,7 +42,9 @@ public abstract class Sort
 		if (listener != null) listener.compare(x, y);
 		if (array[x] > array[y]) return 1;
 		if (array[x] < array[y]) return -1;
+		
 		return 0;
+		
 	}
 	
 	void swap(int x, int y)
@@ -53,15 +56,16 @@ public abstract class Sort
 		if (listener != null) listener.swap(x, y);
 	}
 	
-	void insert(int x, int position)
+	void insert(int x, int position, int gap)
 	{
+		if (x == position) return;
 		int temp = array[x];
-		for (int i = x; i > position; i--)
+		for (int i = x; i > position; i -= gap)
 		{
-			array[i] = array[i-1];
+			array[i] = array[i-gap];
 		}
 		array[position] = temp;
-		if (listener != null) listener.insert(x, position);
+		if (listener != null) listener.insert(x, position, gap);
 	}
 	
 	public boolean isSorted()

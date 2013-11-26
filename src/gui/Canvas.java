@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 public class Canvas extends JPanel
 {
-	static final int PAD_X = 50;
-	static final int PAD_Y = 30;
+	int pad_X = 50;
+	int pad_Y = 30;
 	
 	static final Color BACKGROUND = new Color(238, 238, 238);
 	static final Color BAR_COLOR = new Color(50,50,50);
@@ -36,9 +36,9 @@ public class Canvas extends JPanel
 			if (mirror[bar] == -1) g.setColor(SWAP);
 			
 			int height = getUsableHeight()/max * array[bar];
-			g.fillRect(PAD_X + bar*barWidth, getHeight()/2 - height/2, barWidth - buff, height);
+			g.fillRect(pad_X + bar*barWidth, getHeight()/2 - height/2, barWidth - buff, height);
 			g.setColor(OUTLINE);
-			g.drawRect(PAD_X + bar*barWidth, getHeight()/2 - height/2, barWidth - buff, height);
+			g.drawRect(pad_X + bar*barWidth, getHeight()/2 - height/2, barWidth - buff, height);
 		}
 	}
 	
@@ -48,6 +48,7 @@ public class Canvas extends JPanel
 		mirror = new byte[array.length];
 		
 		barWidth = getUsableWidth()/array.length;
+		pad_X = (getWidth() - barWidth * array.length)/2;
 		buff = barWidth/3;
 		
 		int largest = Integer.MIN_VALUE;
@@ -60,10 +61,10 @@ public class Canvas extends JPanel
 	
 	private int getUsableWidth()
 	{
-		return getWidth() - PAD_X*2;
+		return getWidth() - pad_X*2;
 	}
 	private int getUsableHeight()
 	{
-		return getHeight() - PAD_Y*2;
+		return getHeight() - pad_Y*2;
 	}
 }
